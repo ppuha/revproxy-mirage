@@ -1,13 +1,13 @@
 open Mirage
 
-let runtime_args = [ 
+let runtime_args = [
   runtime_arg ~pos:__POS__ "Unikernel.port";
   runtime_arg ~pos:__POS__ "Unikernel.upstream"
 ]
 
 let make =
   let packages = [ package "cohttp-mirage"; package "duration" ] in
-  main ~packages ~runtime_args "Unikernel.Revproxy" 
+  main ~packages ~runtime_args "Unikernel.Main"
     (conduit @-> http_client @-> job)
 
 let () =
