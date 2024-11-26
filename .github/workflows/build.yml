@@ -11,13 +11,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - name: set-up OCaml
+    - name: Set-up OCaml
       uses: ocaml/setup-ocaml@v2
       with:
         ocaml-compiler: "5.2"
-    - name: install Mirage
+    - name: Install Mirage
       run: opam install mirage
-    - name: configure
+    - name: Update opam
+      run: eval $(opam env)
+    - name: Configure
       run: mirage configure -t unix --net socket
-    - name: build
+    - name: Build
       run: make
