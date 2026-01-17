@@ -1,5 +1,4 @@
 open Cohttp
-open Cohttp_lwt
 open Lwt.Infix
 
 module Make
@@ -14,8 +13,8 @@ module Make
   let callback ctx _conn req body ~upstream =
     let headers = Request.headers req in
     let upstream_uri = Uri.of_string upstream in
-    let target = 
-      Uri.with_uri 
+    let target =
+      Uri.with_uri
         ?scheme:(Some (Uri.scheme upstream_uri))
         ?host:(Some (Uri.host upstream_uri))
         ?port:(Some (Uri.port upstream_uri))
