@@ -2,7 +2,6 @@ open Mirage
 
 let runtime_args = [
   runtime_arg ~pos:__POS__ "Unikernel.port";
-  runtime_arg ~pos:__POS__ "Unikernel.upstream"
 ]
 
 let make =
