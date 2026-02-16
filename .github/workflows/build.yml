@@ -8,14 +8,13 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v4
       - name: Set-up OCaml
         uses: ocaml/setup-ocaml@v2
         with:
           ocaml-compiler: "5.2"
-          opam-depext-flags: --skip darcs
       - name: Install Mirage
         run: opam install mirage
       - name: Update opam
