@@ -2,24 +2,28 @@ name: Build
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - name: Set-up OCaml
-      uses: ocaml/setup-ocaml@v2
-      with:
-        ocaml-compiler: "5.2"
-    - name: Install Mirage
-      run: opam install mirage
-    - name: Update opam
-      run: eval $(opam env)
-    - name: Configure
-      run: mirage configure -t unix --net socket
-    - name: Build
-      run: make
+      - uses: actions/checkout@v4
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y darcs
+      - name: Set-up OCaml
+        uses: ocaml/setup-ocaml@v2
+        with:
+          ocaml-compiler: "5.2"
+      - name: Install Mirage
+        run: opam install mirage
+      - name: Update opam
+        run: eval $(opam env)
+      - name: Configure
+        run: mirage configure -t unix --net socket
+      - name: Build
+        run: make
