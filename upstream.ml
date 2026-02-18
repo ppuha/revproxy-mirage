@@ -4,7 +4,7 @@ type t = {
 }
 
 module type STORE = sig
-  val get_upstream : string -> t option
+  val get_upstream : string -> t option Lwt.t
 end
 
 module Static_store = struct
@@ -13,8 +13,8 @@ module Static_store = struct
       then (Some {
         prefix = "/example";
         upstream_uri = Uri.of_string "http://localhost:7451"
-      })
-    else None
+      }) |> Lwt.return
+    else None |> Lwt.return
 end
 
 let strip_path_prefix uri ~prefix =

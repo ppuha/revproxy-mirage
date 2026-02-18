@@ -14,7 +14,7 @@ module Make
   let callback ctx _conn req body =
     let headers = Request.headers req in
     let path = Request.uri req |> Uri.path in
-    match Upstream_store.get_upstream path with
+    Upstream_store.get_upstream path >>= function
       | None -> H.respond_error ~status:(`Bad_gateway) ~body:String.empty ()
       | Some { prefix; upstream_uri } ->
         let prefix = if String.ends_with ~suffix:"/" prefix then prefix else prefix ^ "/" in
